@@ -66,10 +66,20 @@ resource "aws_subnet" "public-subnet-2" {
 resource "aws_subnet" "private-subnet-1" {
   vpc_id            = aws_vpc.demo-vpc.id
   cidr_block        = "10.0.2.0/24"
-  availability_zone = "ap-southeast-2c"
+  availability_zone = "ap-southeast-2a"
 
   tags = {
     Name = "private-subnet-1"
+  }
+}
+
+resource "aws_subnet" "private-subnet-2" {
+  vpc_id            = aws_vpc.demo-vpc.id
+  cidr_block        = "10.0.3.0/24"
+  availability_zone = "ap-southeast-2b"
+
+  tags = {
+    Name = "private-subnet-2"
   }
 }
 
@@ -115,5 +125,10 @@ resource "aws_route_table_association" "public-subnet-2-association" {
 # เชื่อมโยง Route Table กับ Private Subnet
 resource "aws_route_table_association" "private-subnet-1-association" {
   subnet_id      = aws_subnet.private-subnet-1.id
+  route_table_id = aws_route_table.private_route_table.id
+}
+
+resource "aws_route_table_association" "private-subnet-2-association" {
+  subnet_id      = aws_subnet.private-subnet-2.id
   route_table_id = aws_route_table.private_route_table.id
 }

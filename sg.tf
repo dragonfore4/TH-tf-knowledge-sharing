@@ -45,6 +45,16 @@ resource "aws_vpc_security_group_ingress_rule" "allow_ssh_ec2" {
   description                  = "Allow SSH from bastion"
 }
 
+# Ingress Rule for EC2 Instance (Allow HTTP from ALB)
+resource "aws_vpc_security_group_ingress_rule" "allow_http_from_alb" {
+  security_group_id            = aws_security_group.ec2_sg.id
+  referenced_security_group_id = aws_security_group.alb_sg.id
+  from_port                    = 80
+  to_port                      = 80
+  ip_protocol                  = "tcp"
+  description                  = "Allow HTTP from ALB"
+}
+
 resource "aws_vpc_security_group_egress_rule" "allow_outbound_traffic_ec2" {
   security_group_id = aws_security_group.ec2_sg.id
   cidr_ipv4         = "0.0.0.0/0"
