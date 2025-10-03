@@ -4,7 +4,7 @@ This repository contains Terraform configuration files for deploying cloud infra
 
 ## Architecture Overview
 
-![Architecture Diagram](tf-knowledge-sharing.png)
+![Architecture Diagram](aws-architecture-tf.png)
 
 ## Project Structure
 
