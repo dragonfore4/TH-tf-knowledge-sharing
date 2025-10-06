@@ -37,33 +37,7 @@ git clone <repository-url>
 cd terraform-ja
 ```
 
-### 2. Generate SSH Key Pair
-
-Generate a new SSH key pair for accessing EC2 instances:
-
-```bash
-ssh-keygen -t rsa -b 2048 -f /home/<YOUR_USER>/<DIRECTORY>/deployer-key
-```
-
-Replace `<YOUR_USER>` and `<DIRECTORY>` with your actual username and project directory path.
-
-This command will create:
-- `deployer-key` (private key) - used for SSH access
-- `deployer-key.pub` (public key) - referenced in Terraform configuration
-
-**Important**: After generating the key pair, you need to update the `public_key` value in `keypair.tf` with the contents of your newly generated `deployer-key.pub` file.
-
-### 3. Copy Private Key to Bastion Host (Optional)
-
-If you're using a bastion host architecture, copy the private key to your bastion host:
-
-```bash
-scp -i deployer-key deployer-key ubuntu@<YOUR_BASTION_IP>:/home/ubuntu/
-```
-
-Replace `<YOUR_BASTION_IP>` with your actual bastion host IP address. This allows you to SSH from the bastion host to private instances in your VPC.
-
-### 4. Initialize Terraform
+### 2. Initialize Terraform
 
 ```bash
 terraform init
@@ -75,13 +49,13 @@ terraform init
 terraform plan
 ```
 
-### 5. Plan the Deployment
+### 4. Plan the Deployment
 
 ```bash
 terraform plan
 ```
 
-### 6. Apply the Configuration
+### 5. Apply the Configuration
 
 ```bash
 terraform apply
@@ -89,7 +63,7 @@ terraform apply
 
 Type `yes` when prompted to confirm the deployment.
 
-### 7. Access Your Infrastructure
+### 6. Access Your Infrastructure
 
 After successful deployment, you can access your EC2 instances using the SSH key:
 
