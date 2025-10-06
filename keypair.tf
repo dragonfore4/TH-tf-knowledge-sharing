@@ -1,4 +1,14 @@
+resource "tls_private_key" "rsa" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
 resource "aws_key_pair" "deployer" {
   key_name   = "deployer-key"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDp9KhUOjuoivK34wH0ZRtQYGPkaHPl3JTCEJZMdNijzwaRfulPNLanB4qjSLP2vDUhw21CAS6O8su/x7rbj/Xl+oUuw/w5EZ6ud0H4KJkj2n9wjS1ihEopAoRZUXhvzebGLu2rhgzv+aLibPWAxX23sqdAThXsDUV5KVs7euh32gUdaSPJ+NHHiK+I3SLw1+5/PpiMlyq6FbCtZ7vOvDUYbuIqrqxqdvkvNIMrGn10uf2vS8A9I5H0Ms/CvVQiddM3vjYeFQtBSdvHy2TDMse5Q5GEvIJQOmghYlCGs5wVb4cAlpcYK0acHOCrL23A+6EIYhySV3aqQIb/dgpcpHht kemkai@LAPTOP-VBL1QAI4"
+  public_key = tls_private_key.rsa.public_key_openssh
+}
+
+resource "local_file" "deployer_key" {
+  content  = tls_private_key.rsa.private_key_pem
+  filename = "deployer-key.pem"
 }
